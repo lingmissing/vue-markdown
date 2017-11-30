@@ -6,7 +6,7 @@
 
 <script>
   export default {
-    name: 'vue-electron-pro'
+    name: 'Markdown'
   }
 </script>
 
