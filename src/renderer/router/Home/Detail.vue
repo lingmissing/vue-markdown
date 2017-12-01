@@ -1,12 +1,17 @@
 <template>
 <div class="detail-box">
+  <div class="top-btn-list">
+    <i class="detail-icon icon-view" @click="toggleEdit"></i>
+    <i class="detail-icon icon-remove"></i>
+  </div>
   <div class="detail-header"></div>
   <div class="detail-md-box">
     <div class="detail-title">
       <input type="text">
     </div>
     <div class="detail-content">
-      <textarea></textarea>
+      <textarea v-model="detailContent" v-if="edit"></textarea>
+      <marked-content v-else :content="detailContent"></marked-content>
     </div>
   </div>
 </div>
@@ -14,11 +19,32 @@
 
 
 <style>
+  .top-btn-list {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+  .top-btn-list .detail-icon {
+    display: block;
+    width: 20px;
+    height: 20px;
+    background-size: 18px;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-bottom: 10px;
+  }
+  .icon-view {
+    background-image: url('../../assets/view.png');
+  }
+  .icon-remove {
+    background-image: url('../../assets/remove.png');
+  }
   .detail-box {
     background: #fbfbfb;
     flex: 1;
     display: flex;
     flex-direction: column;
+    position: relative;
   }
   .detail-header {
     height: 50px;
@@ -62,20 +88,22 @@
   }
 </style>
 <script>
+  import MarkedContent from '@/components/MarkedContent'
   export default {
-    name: 'Home',
-    components: {},
+    name: 'Detail',
+    components: {
+      MarkedContent
+    },
+    data() {
+      return {
+        edit: true,
+        detailContent: ''
+      }
+    },
     mounted() {},
     methods: {
-      setmenu() {
-        // 告诉主进程在单击示例按钮时显示菜单
-        const contextMenuBtn = document.querySelector('.aaa')
-        contextMenuBtn.addEventListener('click', function() {
-          // ipcRenderer.send('show-context-menu')
-        })
-      },
-      toRoute() {
-        this.$router.push('/todo')
+      toggleEdit() {
+        this.edit = !this.edit
       }
     }
   }
