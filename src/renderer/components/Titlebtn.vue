@@ -1,12 +1,11 @@
 <template>
-  <div 
+  <span 
     class="title-btn" 
     :class="`title-${type}`"
     @click="click"/>
 </template>
 
 <script>
-  // const { ipcRenderer: ipc } = require('electron')
   import { ipcRenderer } from 'electron'
   export default {
     name: 'titlebtn',
@@ -22,23 +21,35 @@
 <style>
   .title-btn {
     position: absolute;
-    width: 20px;
-    height: 20px;
-    top: 0;
-    bottom: 0;
-    margin: auto 0;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    top: 8px;
     -webkit-app-region: no-drag;
-  }
-  .title-close {
-    background-color: black;
-    right: 20px;
-  }
-  .title-min {
-    background-color: green;
-    right: 100px;
+    background-size: 9px;
+    background-repeat: no-repeat;
+    background-position: center;
   }
   .title-max {
-    background-color: yellow;
-    right: 60px;
+    background-color: #67c656;
+    left: 48px;
+  }
+  .title-max:hover {
+    background-image: url('../assets/max.png');
+  }
+  .title-close {
+    background-color: #eb6a5f;
+    left: 8px;
+  }
+  .title-close:hover {
+    background-image: url('../assets/close.png');
+  }
+  .title-min {
+    background-color: #f5c151;
+    left: 28px;
+  }
+  .title-min:hover {
+    background-image: url('../assets/min.png');
   }
 </style>
+// 2f3235

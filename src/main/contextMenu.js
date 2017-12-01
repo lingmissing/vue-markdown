@@ -1,9 +1,4 @@
-const electron = require('electron')
-const BrowserWindow = electron.BrowserWindow
-const Menu = electron.Menu
-const MenuItem = electron.MenuItem
-const ipc = electron.ipcMain
-const app = electron.app
+import { BrowserWindow, Menu, MenuItem, ipcMain, app } from 'electron'
 
 const menu = new Menu()
 menu.append(new MenuItem({ label: 'Hello' }))
@@ -18,7 +13,7 @@ app.on('browser-window-created', function(event, win) {
   })
 })
 
-ipc.on('show-context-menu', function(event) {
+ipcMain.on('show-context-menu', function(event) {
   const win = BrowserWindow.fromWebContents(event.sender)
   menu.popup(win)
 })
