@@ -1,4 +1,4 @@
-.markdown-body {
+/* .markdown-body {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   line-height: 1.5;
@@ -705,4 +705,145 @@
 
 .markdown-body hr {
   border-bottom-color: #eee;
+} */
+
+.markdown-body h1 {
+  line-height: 40px;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.markdown-body h1:before {
+  display: inline-block;
+  content: 'H1';
+  width: 25px;
+  font-size: 20px;
+  color: #ccc;
+  margin-right: 10px;
+}
+
+.markdown-body h2 {
+  line-height: 38px;
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.markdown-body h2:before {
+  display: inline-block;
+  content: 'H2';
+  width: 25px;
+  font-size: 18px;
+  color: #ccc;
+  margin-right: 10px;
+}
+
+hr {
+  color: red;
+  background: red;
+  display: block;
+  margin: 15px 0;
+}
+
+strong {
+  font-size: 18px;
+  font-weight: bold;
+}
+strong:before,
+strong:after {
+  content: '**';
+  color: #ccc;
+  font-size: 16px;
+  font-weight: normal;
+}
+em {
+  font-size: 18px;
+}
+em:before,
+em:after {
+  content: '*';
+  color: #ccc;
+  font-size: 16px;
+}
+del {
+  font-size: 18px;
+  color: #ccc;
+}
+del:before,
+del:after {
+  content: '~~';
+  color: #ccc;
+  font-size: 16px;
+}
+p {
+  line-height: 32px;
+  font-size: 18px;
+  margin: 10px 0;
+}
+.markdown-body ul li {
+  font-size: 18px;
+  position: relative;
+  line-height: 32px;
+  padding-left: 20px;
+}
+.markdown-body ul li:before {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #c55d62;
+  left: 0;
+  top: 12px;
+}
+
+ol {
+  list-style-type: decimal;
+}
+
+code {
+  font-size: 16px;
+}
+
+blockquote {
+  display: block;
+  padding-left: 10px;
+  margin: 10px 0;
+  border-left: 4px solid #c55d62;
+}
+
+code {
+  display: inline-block;
+  border: 1px solid #eee;
+  line-height: 32px;
+  background: #fff;
+  padding: 0 5px;
+}
+img {
+  display: block;
+  margin: 0 auto;
+}
+a {
+  color: #c55d62;
+}
+table,
+thead,
+tbody {
+  width: 100%;
+  font-size: 18px;
+}
+tr {
+  line-height: 32px;
+}
+th {
+  font-weight: 600;
+  text-align: left !important;
+}
+td {
+  text-align: left !important;
+}
+
+::selection {
+  background-color: #2f3235;
+  color: #fff;
 }

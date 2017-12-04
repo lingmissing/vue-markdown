@@ -5,12 +5,17 @@
   background: #002b36;
   color: #839496;
 }
-code.lang-js {
+code.lang-js,
+code.lang-bash,
+code.lang-javascript,
+code.lang-css,
+code.lang-html {
   display: block;
   overflow-x: auto;
   padding: 0.5em;
   background: #002b36;
   color: #839496;
+  margin: 5px 0;
 }
 
 .hljs-comment,

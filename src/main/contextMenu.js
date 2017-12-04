@@ -1,10 +1,10 @@
 import { BrowserWindow, Menu, MenuItem, ipcMain, app } from 'electron'
 
 const menu = new Menu()
-menu.append(new MenuItem({ label: 'Hello' }))
+menu.append(new MenuItem({ label: '1111' }))
 menu.append(new MenuItem({ type: 'separator' }))
 menu.append(
-  new MenuItem({ label: 'Electron', type: 'checkbox', checked: true })
+  new MenuItem({ label: 'Eledctron', type: 'checkbox', checked: true })
 )
 
 app.on('browser-window-created', function(event, win) {

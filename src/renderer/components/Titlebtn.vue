@@ -52,4 +52,3 @@
     background-image: url('../assets/min.png');
   }
 </style>
-// 2f3235

@@ -1,7 +1,12 @@
 <template>
 <main>
-  <Category></Category>
-  <List></List>
+  <my-title></my-title>
+  <Category 
+    :currentType="currentType" 
+    @currentClick="getCurrentType($event)"></Category>
+  <List 
+    :currentType="currentType" 
+    @currentClick="getCurrentType($event)"></List>
   <Detail></Detail>
 </main>
 </template>
@@ -11,31 +16,32 @@
   main {
     display: flex;
     height: 100%;
+    position: relative;
   }
 </style>
 
 <script>
   import Category from './Category'
+  import MyTitle from '@/components/MyTitle'
   import Detail from './Detail'
   import List from './List'
   export default {
     name: 'Home',
     components: {
+      MyTitle,
       Category,
       Detail,
       List
     },
+    data() {
+      return {
+        currentType: ''
+      }
+    },
     mounted() {},
     methods: {
-      setmenu() {
-        // 告诉主进程在单击示例按钮时显示菜单
-        const contextMenuBtn = document.querySelector('.aaa')
-        contextMenuBtn.addEventListener('click', function() {
-          // ipcRenderer.send('show-context-menu')
-        })
-      },
-      toRoute() {
-        this.$router.push('/todo')
+      getCurrentType(type) {
+        this.currentType = type
       }
     }
   }

@@ -15,7 +15,7 @@
   <ul class="md-list">
     <li
       class="md-list-item" v-for="item in list"
-      :class="item.id === activeArtical ? 'active' : ''"
+      :class="activeClass(item.id)"
       :key="item.id"
       @click="setActiveArtical(item.id)">
       <span class="md-time">{{item.time}}</span>
@@ -123,6 +123,9 @@
   .md-list-item.active {
     background: #fff;
   }
+  .md-list-item.active.gray {
+    background: #efefef;
+  }
   .md-list-item:before {
     content: '';
     position: absolute;
@@ -136,6 +139,9 @@
   }
   .md-list-item.active:before {
     transform: scale(1);
+  }
+  .md-list-item.active.gray:before {
+    background: #999;
   }
   .md-list-item .md-time {
     padding: 15px 0 15px 15px;
@@ -169,6 +175,9 @@
 <script>
   export default {
     name: 'List',
+    props: {
+      currentType: String
+    },
     data() {
       return {
         searchText: '',
@@ -229,12 +238,19 @@
     components: {},
     mounted() {},
     methods: {
+      activeClass(text) {
+        const isCurrent = this.currentType === 'list'
+        if (text === this.activeArtical) {
+          return isCurrent ? 'active' : 'active gray'
+        }
+      },
       toggleSearch(status) {
         this.showSearch = status
         this.searchText = ''
       },
       setActiveArtical(id) {
         this.activeArtical = id
+        this.$emit('currentClick', 'list')
       }
     }
   }
