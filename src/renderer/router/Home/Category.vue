@@ -82,7 +82,6 @@
 </style>
 
 <script>
-  const { ipcRenderer } = 'electron'
   export default {
     name: 'Category',
     props: {
@@ -94,12 +93,7 @@
         categorys: ['JAVASCRIPT', 'CSSS', 'NODE', 'REACT']
       }
     },
-    mounted() {
-      const contextMenuBtn = document.querySelector('.gloabl-category-item')
-      contextMenuBtn.addEventListener('click', function() {
-        ipcRenderer.send('show-context-menu')
-      })
-    },
+    mounted() {},
     methods: {
       activeClass(text) {
         const isCurrent = this.currentType === 'category'

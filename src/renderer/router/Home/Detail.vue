@@ -9,8 +9,8 @@
     <div class="detail-title">
       <input type="text">
     </div>
-    <div class="detail-content">
-      <textarea v-model="detailContent" v-if="edit"></textarea>
+    <div class="detail-content" >
+      <textarea v-model="detailContent" v-if="edit" @contextmenu="setContextMenu"></textarea>
       <marked-content v-else :content="detailContent"></marked-content>
     </div>
   </div>
@@ -107,6 +107,37 @@
     },
     mounted() {},
     methods: {
+      setContextMenu() {
+        const template = [
+          {
+            label: '剪切',
+            accelerator: 'CmdOrCtrl+X',
+            role: 'cut'
+          },
+          {
+            label: '拷贝',
+            accelerator: 'CmdOrCtrl+C',
+            role: 'copy'
+          },
+          {
+            label: '粘贴',
+            accelerator: 'CmdOrCtrl+V',
+            role: 'paste'
+          },
+          {
+            label: '全选',
+            accelerator: 'CmdOrCtrl+A',
+            role: 'selectall'
+          },
+          {
+            label: '预览',
+            click: () => {
+              this.edit = false
+            }
+          }
+        ]
+        this.$setContextMenu(template)
+      },
       toggleEdit() {
         this.edit = !this.edit
       }

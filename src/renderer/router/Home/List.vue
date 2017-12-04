@@ -17,6 +17,7 @@
       class="md-list-item" v-for="item in list"
       :class="activeClass(item.id)"
       :key="item.id"
+      @contextmenu="setMenu(item)"
       @click="setActiveArtical(item.id)">
       <span class="md-time">{{item.time}}</span>
       <div class="md-content">
@@ -119,6 +120,7 @@
     display: flex;
     position: relative;
     cursor: default;
+    user-select: none;
   }
   .md-list-item.active {
     background: #fff;
@@ -173,6 +175,7 @@
 </style>
 
 <script>
+  // import { remote } from 'electron'
   export default {
     name: 'List',
     props: {
@@ -187,57 +190,83 @@
           {
             id: 1,
             time: '1周',
-            title: '富文本编辑',
+            title: '富文本编辑1',
             detail: 'nhjnjjnjjjjjjjjjjjjjjjj'
           },
           {
             id: 2,
             time: '1周',
-            title: '富文本编辑',
+            title: '富文本编辑2',
             detail: 'nhjnjjnjjjjjjjjjjjjjjjj'
           },
           {
             id: 3,
             time: '1周',
-            title: '富文本编辑',
+            title: '富文本编辑3',
             detail: 'nhjnjjnjjjjjjjjjjjjjjjj'
           },
           {
             id: 6,
             time: '1周',
-            title: '富文本编辑',
+            title: '富文本编辑4',
             detail: 'nhjnjjnjjjjjjjjjjjjjjjj'
           },
           {
             id: 7,
             time: '1周',
-            title: '富文本编辑',
+            title: '富文本编辑5',
             detail: 'nhjnjjnjjjjjjjjjjjjjjjj'
           },
           {
             id: 8,
             time: '1周',
-            title: '富文本编辑',
+            title: '富文本编辑6',
             detail: 'nhjnjjnjjjjjjjjjjjjjjjj'
           },
           {
             id: 75,
             time: '1周',
-            title: '富文本编辑',
+            title: '富文本编辑7',
             detail: 'nhjnjjnjjjjjjjjjjjjjjjj'
           },
           {
             id: 57,
             time: '1周',
-            title: '富文本编辑',
+            title: '富文本编辑74',
             detail: 'nhjnjjnjjjjjjjjjjjjjjjj'
           }
         ]
       }
     },
-    components: {},
-    mounted() {},
     methods: {
+      setMenu(data) {
+        const template = [
+          {
+            label: '置顶',
+            click: () => {
+              this.setTop(data)
+            }
+          },
+          {
+            label: '拷贝',
+            role: 'copy'
+          },
+          {
+            label: '删除',
+            click: () => {
+              this.deleteList(data.id)
+            }
+          }
+        ]
+        this.$setContextMenu(template)
+      },
+      setTop(data) {
+        const filterData = this.list.filter(item => item.id !== data.id)
+        this.list = [data, ...filterData]
+      },
+      deleteList(id) {
+        this.list = this.list.filter(item => item.id !== id)
+      },
       activeClass(text) {
         const isCurrent = this.currentType === 'list'
         if (text === this.activeArtical) {
