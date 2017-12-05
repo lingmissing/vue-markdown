@@ -10,27 +10,40 @@
         <span class="icon-search">搜索笔记</span>
       </div>
     </div>
-    <span class="new-md"></span>
+    <span class="new-md" @click="addList"></span>
   </div>
   <ul class="md-list">
-    <li
-      class="md-list-item" v-for="item in list"
-      :class="activeClass(item.id)"
-      :key="item.id"
-      @contextmenu="setMenu(item)"
-      @click="setActiveArtical(item.id)">
-      <span class="md-time">{{item.time}}</span>
-      <div class="md-content">
-        <h1 class="md-title">{{item.title}}</h1>
-        <p class="md-detail">{{item.detail}}</p>
+     <transition-group name="list" tag="li">
+      <div
+        class="md-list-item" v-for="item in list"
+        :class="activeClass(item.id)"
+        :key="item.id"
+        @contextmenu="setMenu(item)"
+        @click="setActiveArtical(item.id)">
+        <span class="md-time">{{item.time}}</span>
+        <div class="md-content">
+          <h1 class="md-title">{{item.title || '未命名新笔记'}}</h1>
+          <p class="md-detail">{{item.detail || '调整内心，写点东西'}}</p>
+        </div>
       </div>
-    </li>
+    </transition-group>
   </ul>
 </div>
 </template>
 
 
 <style>
+  .list-item {
+  }
+  .list-enter-active,
+  .list-leave-active {
+    transition: all 0.3s;
+  }
+  .list-enter,
+  .list-leave-to {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
   .list-box {
     background: #fbfbfb;
     width: 280px;
@@ -55,7 +68,7 @@
     position: relative;
     width: 100%;
     height: 100%;
-    border: 1px solid #bfbfbf;
+    border: 1px solid #eee;
     border-radius: 5px;
     background: url('../../assets/search.png') no-repeat 10px;
     background-size: 14px;
@@ -89,7 +102,7 @@
     width: 100%;
     height: 100%;
     line-height: 24px;
-    border: 1px solid #bfbfbf;
+    border: 1px solid #eee;
     width: 100%;
     text-align: center;
     cursor: default;
@@ -171,6 +184,7 @@
     font-family: PingFangSC-Light;
     color: #bfbfbf;
     line-height: 22px;
+    font-size: 14px;
   }
 </style>
 
@@ -280,6 +294,16 @@
       setActiveArtical(id) {
         this.activeArtical = id
         this.$emit('currentClick', 'list')
+      },
+      addList() {
+        this.list = [
+          {
+            id: 527,
+            time: '1周'
+          },
+          ...this.list
+        ]
+        this.activeArtical = 527
       }
     }
   }

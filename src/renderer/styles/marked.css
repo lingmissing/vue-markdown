@@ -732,7 +732,7 @@
   display: inline-block;
   content: 'H2';
   width: 25px;
-  font-size: 18px;
+  font-size: 16px;
   color: #ccc;
   margin-right: 10px;
 }
@@ -745,42 +745,42 @@ hr {
 }
 
 strong {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
 }
 strong:before,
 strong:after {
   content: '**';
   color: #ccc;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: normal;
 }
 em {
-  font-size: 18px;
+  font-size: 16px;
 }
 em:before,
 em:after {
   content: '*';
   color: #ccc;
-  font-size: 16px;
+  font-size: 14px;
 }
 del {
-  font-size: 18px;
+  font-size: 16px;
   color: #ccc;
 }
 del:before,
 del:after {
   content: '~~';
   color: #ccc;
-  font-size: 16px;
+  font-size: 14px;
 }
 p {
   line-height: 32px;
-  font-size: 18px;
+  font-size: 16px;
   margin: 10px 0;
 }
 .markdown-body ul li {
-  font-size: 18px;
+  font-size: 16px;
   position: relative;
   line-height: 32px;
   padding-left: 20px;
@@ -830,7 +830,7 @@ table,
 thead,
 tbody {
   width: 100%;
-  font-size: 18px;
+  font-size: 16px;
 }
 tr {
   line-height: 32px;

@@ -6,7 +6,7 @@
   </div>
   <div class="detail-header"></div>
   <div class="detail-md-box">
-    <div class="detail-title">
+    <div class="detail-title" v-if="edit">
       <input type="text">
     </div>
     <div class="detail-content" >
@@ -20,7 +20,7 @@
 
 <style>
   .top-btn-list {
-    position: absolute;
+    position: fixed;
     top: 20px;
     right: 20px;
   }
@@ -42,20 +42,19 @@
   .detail-box {
     background: #fbfbfb;
     flex: 1;
-    display: flex;
-    flex-direction: column;
     position: relative;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
   .detail-header {
     height: 50px;
     -webkit-app-region: drag;
   }
   .detail-md-box {
-    flex: 1;
     padding: 0 115px 0 80px;
     display: flex;
     flex-direction: column;
+    min-height: calc(100% - 50px);
   }
   .detail-title {
     width: 100%;
@@ -77,7 +76,6 @@
     margin-top: 10px;
     overflow: hidden;
     padding-bottom: 20px;
-    overflow-y: auto;
   }
   .detail-content textarea {
     caret-color: #cb5654;

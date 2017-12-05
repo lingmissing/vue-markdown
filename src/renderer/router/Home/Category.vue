@@ -19,10 +19,19 @@
     <li 
       v-for="item in categorys" 
       class="gloabl-category-item" 
-      :class="activeClass(item)"  
+      :class="activeClass(item)" 
+      @contextmenu="setMenu(item)" 
       :key="item" 
       @click="setActiveCategory(item)">
-      <i class="icon icon-category"></i><span>{{item}}</span>
+        <i class="icon icon-category"></i>
+        <span v-if="item !== renameInfo">{{item}}</span>
+        <input
+          v-else
+          v-focus
+          class="edit-category" 
+          type="text" 
+          v-model.trim="editInfo" 
+          @keyup.enter="saveCategory">
     </li>
   </ul>
 </div>
@@ -43,17 +52,24 @@
   .gloabl-category {
     padding: 0;
   }
+  .edit-category {
+    border-width: 0;
+    background: transparent;
+    color: #fff;
+    outline: 0;
+  }
   .gloabl-category-item {
     display: block;
     height: 30px;
     color: #cfcfcf;
+    display: flex;
     line-height: 30px;
     padding-left: 20px;
-    display: flex;
     cursor: default;
     transition: all 0.3s;
     background: transparent;
   }
+
   .gloabl-category-item.active {
     background: #cb5654;
     color: #fff;
@@ -89,12 +105,42 @@
     },
     data() {
       return {
+        editInfo: '',
+        renameInfo: '',
         activeCategory: 'text',
         categorys: ['JAVASCRIPT', 'CSSS', 'NODE', 'REACT']
       }
     },
     mounted() {},
     methods: {
+      saveCategory() {
+        this.categorys = this.categorys.map(item => item === this.renameInfo ? this.editInfo : item)
+      },
+      setMenu(menu) {
+        const template = [
+          {
+            label: '重命名标签',
+            click: () => {
+              this.renameMenu(menu)
+            }
+          },
+          {
+            label: '删除标签',
+            click: () => {
+              this.deleteMenu(menu)
+            }
+          }
+        ]
+        this.$setContextMenu(template)
+      },
+      renameMenu(menu) {
+        this.renameInfo = menu
+        this.editInfo = menu
+      },
+      deleteMenu(menu) {
+        console.log(menu)
+        this.categorys = this.categorys.filter(item => item !== menu)
+      },
       activeClass(text) {
         const isCurrent = this.currentType === 'category'
         if (text === this.activeCategory) {

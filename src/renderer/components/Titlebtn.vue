@@ -5,19 +5,6 @@
     @click="click"/>
 </template>
 
-<script>
-  import { ipcRenderer } from 'electron'
-  export default {
-    name: 'titlebtn',
-    props: ['type'],
-    methods: {
-      click() {
-        ipcRenderer.send(this.type)
-      }
-    }
-  }
-</script>
-    
 <style>
   .title-btn {
     position: absolute;
@@ -29,6 +16,7 @@
     background-size: 9px;
     background-repeat: no-repeat;
     background-position: center;
+    z-index: 1000;
   }
   .title-max {
     background-color: #67c656;
@@ -52,3 +40,17 @@
     background-image: url('../assets/min.png');
   }
 </style>
+
+<script>
+  import { ipcRenderer } from 'electron'
+  export default {
+    name: 'titlebtn',
+    props: ['type'],
+    methods: {
+      click() {
+        ipcRenderer.send(this.type)
+      }
+    }
+  }
+</script>
+    
