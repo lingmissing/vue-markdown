@@ -1,8 +1,39 @@
 <template>
-<div v-html="getHtml" class="markdown-body"></div>
+<div>
+  <h1 class="markdown-title">{{title}}</h1>
+  <ul class="markdown-label-list" v-if="label">
+    <li v-for="item in label">#{{item}}</li>
+  </ul>
+  <div v-html="getHtml" class="markdown-body"></div>
+</div>
 </template>
 
 <style>
+  .markdown-label-list {
+    margin: 15px 0;
+    display: flex;
+  }
+  .markdown-label-list li {
+    line-height: 25px;
+    color: #fff;
+    background: #bfbfbf;
+    border-radius: 15px;
+    font-size: 15px;
+    padding: 0 10px;
+    margin-right: 10px;
+    user-select: none;
+  }
+  .markdown-title {
+    text-align: center;
+    font-weight: 400;
+    border-bottom:2px solid #bfbfbf;
+    border-radius: 10px;
+    color: #333;
+    padding-left: 20px;
+    line-height: 50px;
+    background-size: 15px;
+    margin-bottom: 10px;
+  }
   .markdown-body {
     width: 100%;
   }
@@ -16,6 +47,8 @@
   export default {
     name: 'marked-content',
     props: {
+      title: String,
+      label: Array,
       content: String
     },
     computed: {
