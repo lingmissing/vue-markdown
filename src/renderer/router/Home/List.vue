@@ -1,34 +1,37 @@
 <template>
-<div class="list-box">
-  <div class="list-header">
-    <div class="search-box">
-      <div class="search-input" v-if="showSearch">
-        <input type="text" placeholder="搜索笔记" v-model="searchText">
-        <i class="icon-close" v-if="searchText" @click="toggleSearch(false)"></i>
-      </div>
-      <div v-else class="search-tip" @click="toggleSearch(true)">
-        <span class="icon-search">搜索笔记</span>
-      </div>
-    </div>
-    <span class="new-md" @click="addList"></span>
-  </div>
-  <ul class="md-list">
-     <transition-group name="list" tag="li">
-      <div
-        class="md-list-item" v-for="item in list"
-        :class="activeClass(item.id)"
-        :key="item.id"
-        @contextmenu="setMenu(item)"
-        @click="setActiveArtical(item.id)">
-        <span class="md-time">{{item.time}}</span>
-        <div class="md-content">
-          <h1 class="md-title">{{item.title || '未命名新笔记'}}</h1>
-          <p class="md-detail">{{item.detail || '调整内心，写点东西'}}</p>
+<transition name="slide-fade">
+  <div class="list-box" v-if="isShow">
+    <div class="list-header" 
+      :class="currentLayout === 2 ? 'max-height' : ''">
+      <div class="search-box">
+        <div class="search-input" v-if="showSearch">
+          <input type="text" placeholder="搜索笔记" v-model="searchText">
+          <i class="icon-close" v-if="searchText" @click="toggleSearch(false)"></i>
+        </div>
+        <div v-else class="search-tip" @click="toggleSearch(true)">
+          <span class="icon-search">搜索笔记</span>
         </div>
       </div>
-    </transition-group>
-  </ul>
-</div>
+      <span class="new-md" @click="addList"></span>
+    </div>
+    <ul class="md-list">
+      <transition-group name="list" tag="li">
+        <div
+          class="md-list-item" v-for="item in list"
+          :class="activeClass(item.id)"
+          :key="item.id"
+          @contextmenu="setMenu(item)"
+          @click="setActiveArtical(item.id)">
+          <span class="md-time">{{item.time}}</span>
+          <div class="md-content">
+            <h1 class="md-title">{{item.title || '未命名新笔记'}}</h1>
+            <p class="md-detail">{{item.detail || '调整内心，写点东西'}}</p>
+          </div>
+        </div>
+      </transition-group>
+    </ul>
+  </div>
+</transition>
 </template>
 
 
@@ -58,7 +61,12 @@
     display: flex;
     border-bottom: 1px solid #bfbfbf;
   }
+  .list-header.max-height {
+    height: 65px;
+    padding-top: 27px;
+  }
   .search-box {
+    height: 26px;
     -webkit-app-region: no-drag;
     flex: 1;
     padding-right: 10px;
@@ -193,10 +201,12 @@
   export default {
     name: 'List',
     props: {
+      currentLayout: Number,
       currentType: String
     },
     data() {
       return {
+        isShow: true,
         searchText: '',
         activeArtical: '',
         showSearch: false,
@@ -250,6 +260,11 @@
             detail: 'nhjnjjnjjjjjjjjjjjjjjjj'
           }
         ]
+      }
+    },
+    watch: {
+      currentLayout(val) {
+        this.isShow = val !== 1
       }
     },
     methods: {

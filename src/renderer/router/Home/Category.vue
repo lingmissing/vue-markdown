@@ -1,44 +1,57 @@
 <template>
-<div class="category-box">
-  <div class="category-header">
+<transition name="slide-fade">
+  <div class="category-box" v-if="isShow">
+    <div class="category-header">
+    </div>
+    <ul class="gloabl-category">
+      <li 
+        class="gloabl-category-item" 
+        :class="activeClass('text')"  
+        @click="setActiveCategory('text')">
+        <i class="icon icon-text"></i><span>笔记</span>
+      </li>
+      <li 
+        class="gloabl-category-item" 
+        :class="activeClass('trash')"  
+        @click="setActiveCategory('trash')">
+        <i class="icon icon-trash"></i><span>废纸篓</span>
+      </li>
+      <br>
+      <li 
+        v-for="item in categorys" 
+        class="gloabl-category-item" 
+        :class="activeClass(item)" 
+        @contextmenu="setMenu(item)" 
+        :key="item" 
+        @click="setActiveCategory(item)">
+          <i class="icon icon-category"></i>
+          <span v-if="item !== renameInfo">{{item}}</span>
+          <input
+            v-else
+            v-focus
+            class="edit-category" 
+            type="text" 
+            v-model.trim="editInfo" 
+            @keyup.enter="saveCategory">
+      </li>
+    </ul>
   </div>
-  <ul class="gloabl-category">
-    <li 
-      class="gloabl-category-item" 
-      :class="activeClass('text')"  
-      @click="setActiveCategory('text')">
-      <i class="icon icon-text"></i><span>笔记</span>
-    </li>
-    <li 
-      class="gloabl-category-item" 
-      :class="activeClass('trash')"  
-      @click="setActiveCategory('trash')">
-      <i class="icon icon-trash"></i><span>废纸篓</span>
-    </li>
-    <br>
-    <li 
-      v-for="item in categorys" 
-      class="gloabl-category-item" 
-      :class="activeClass(item)" 
-      @contextmenu="setMenu(item)" 
-      :key="item" 
-      @click="setActiveCategory(item)">
-        <i class="icon icon-category"></i>
-        <span v-if="item !== renameInfo">{{item}}</span>
-        <input
-          v-else
-          v-focus
-          class="edit-category" 
-          type="text" 
-          v-model.trim="editInfo" 
-          @keyup.enter="saveCategory">
-    </li>
-  </ul>
-</div>
+</transition>
 </template>
 
 
 <style>
+  .slide-fade-enter-active {
+    transition: all .2s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all .2s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+  /* .slide-fade-leave-active for below version 2.1.8 */ {
+    transform: translateX(-10px);
+    opacity: 0;
+  }
   .category-box {
     background: #2f3235;
     width: 150px;
@@ -101,10 +114,12 @@
   export default {
     name: 'Category',
     props: {
+      currentLayout: Number,
       currentType: String
     },
     data() {
       return {
+        isShow: true,
         editInfo: '',
         renameInfo: '',
         activeCategory: 'text',
@@ -112,6 +127,11 @@
       }
     },
     mounted() {},
+    watch: {
+      currentLayout(val) {
+        this.isShow = val === 3
+      }
+    },
     methods: {
       saveCategory() {
         this.categorys = this.categorys.map(item => item === this.renameInfo ? this.editInfo : item)

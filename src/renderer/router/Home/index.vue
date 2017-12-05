@@ -3,11 +3,14 @@
   <my-title></my-title>
   <Category 
     :currentType="currentType" 
+    :currentLayout="currentLayout"
     @currentClick="getCurrentType($event)"></Category>
   <List 
     :currentType="currentType" 
+    :currentLayout="currentLayout"
     @currentClick="getCurrentType($event)"></List>
-  <Detail></Detail>
+  <Detail
+    @changeLayout="changeLayout"></Detail>
 </main>
 </template>
 
@@ -35,6 +38,7 @@
     },
     data() {
       return {
+        currentLayout: 3,
         currentType: ''
       }
     },
@@ -42,6 +46,10 @@
     methods: {
       getCurrentType(type) {
         this.currentType = type
+      },
+      changeLayout() {
+        // const layout = [1, 2, 3]
+        this.currentLayout = this.currentLayout === 1 ? 3 : this.currentLayout - 1
       }
     }
   }

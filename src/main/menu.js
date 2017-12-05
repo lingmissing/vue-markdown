@@ -1,5 +1,4 @@
 const electron = require('electron')
-const Vue = require('vue')
 const BrowserWindow = electron.BrowserWindow
 const Menu = electron.Menu
 const app = electron.app
@@ -132,8 +131,7 @@ let template = [
         label: '显示笔记',
         accelerator: 'Ctrl+3',
         click: function(item, focusedWindow) {
-          console.log('显示笔记')
-          Vue.teste('2')
+          window.alert('显示笔记')
         }
       }
     ]

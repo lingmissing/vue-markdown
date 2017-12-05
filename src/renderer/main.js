@@ -9,12 +9,30 @@ import '../renderer/styles/highlight.css'
 import '../renderer/styles/marked.css'
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
+
 Vue.directive('focus', {
   inserted: el => {
     el.focus()
   }
 })
+
+Vue.directive('demo', {
+  twoWay: true,
+  bind: el => {
+    el.addEventListener('keyup', () => {
+      this.set(this.el.innerHTML)
+    })
+  },
+  update: function(newValue, oldValue) {
+    this.el.innerHTML = newValue || ''
+  },
+  unbind: el => {
+    el.removeEventListener('keyup', this.handler)
+  }
+})
+
 Vue.http = Vue.prototype.$http = axios
+
 Vue.setContextMenu = Vue.prototype.$setContextMenu = function setMenu(
   template
 ) {
@@ -34,9 +52,6 @@ Vue.setContextMenu = Vue.prototype.$setContextMenu = function setMenu(
   menu.popup(remote.getCurrentWindow(), {
     async: true
   })
-}
-Vue.teste = Vue.prototype.$teste = function(a) {
-  console.log(a)
 }
 
 Vue.config.productionTip = false
