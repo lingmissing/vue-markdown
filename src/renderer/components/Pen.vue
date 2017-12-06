@@ -4,6 +4,7 @@
       class="pen-item"
       v-for="(item, index) in penData"
       :key="index"
+      @click="$emit('handlePen', item.key)"
       :class="item.key === 'separator' ? 'separator' : ''">
       <span class="pen-style">{{item.label}}</span>
       <span class="pen-accelerator">{{item.accelerator}}</span>

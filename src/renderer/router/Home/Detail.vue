@@ -6,7 +6,7 @@
   </div>
   <div class="bottom-btn-list">
     <el-popover ref="pen" trigger="click">
-      <Pen></Pen>
+      <Pen @handlePen="handlePen($event)"></Pen>
     </el-popover>
     <i v-popover:pen class="detail-icon icon-pen"></i>
     <i class="detail-icon icon-layout" @click="$emit('changeLayout')"></i>
@@ -89,7 +89,7 @@
     & .detail-header {
       position: fixed;
       top: 0;
-      left: 330px;
+      left: 430px;
       right: 40px;
       height: 50px;
       z-index: 10;
@@ -194,7 +194,8 @@
       },
       toggleEdit() {
         this.edit = !this.edit
-      }
+      },
+      handlePen(type) {}
     }
   }
 </script>
