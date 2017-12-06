@@ -73,7 +73,12 @@
     overflow-x: hidden;
   }
   .detail-header {
+    position: fixed;
+    top: 0;
+    left: 330px;
+    right: 40px;
     height: 50px;
+    z-index: 10;
     -webkit-app-region: drag;
   }
   .detail-md-box {
