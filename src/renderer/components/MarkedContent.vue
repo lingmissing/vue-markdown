@@ -26,7 +26,6 @@
   .markdown-title {
     text-align: center;
     font-weight: 400;
-    border-bottom:2px solid #bfbfbf;
     border-radius: 10px;
     color: #333;
     padding-left: 20px;

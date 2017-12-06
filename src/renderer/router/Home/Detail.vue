@@ -16,9 +16,20 @@
     <div class="detail-title" v-if="edit">
       <input type="text" v-model="detailTitle" placeholder="未命名新笔记">
     </div>
-    <div class="detail-title" v-if="edit">
-      <input type="text" v-model="detailLabel" placeholder="标签">
-    </div>
+    <el-select
+      v-if="edit"
+      v-model="detailLabel"
+      multiple
+      filterable
+      allow-create
+      placeholder="请选择标签">
+      <el-option
+        v-for="item in labelOptions"
+        :key="item.value"
+        :label="item.label"
+        :value="item.value">
+      </el-option>
+    </el-select>
     <div class="detail-content" >
       <textarea
         v-model="detailContent"
@@ -37,14 +48,15 @@
 
 
 <style>
-  .pen-list {
-    & .pen-item {
-      height: 25px;
-      border-radius: 5px;
-      overflow: hidden;
-      &:hover {
-        background: #efefef;
-      }
+  .el-select {
+    display: block;
+    margin-top: 10px;
+    & .el-input__suffix {
+      display: none;
+    }
+    & input {
+      background: transparent;
+      border-width: 0;
     }
   }
   .top-btn-list,
@@ -153,6 +165,20 @@
     data() {
       return {
         edit: false,
+        labelOptions: [
+          {
+            value: 'javascript',
+            label: 'javascript'
+          },
+          {
+            value: 'css',
+            label: 'css'
+          },
+          {
+            value: 'node',
+            label: 'node'
+          }
+        ],
         detailTitle: '',
         detailLabel: [],
         detailContent:

@@ -4,7 +4,7 @@ import { remote } from 'electron'
 import App from './App'
 import router from './router'
 import store from './store'
-import { Popover } from 'element-ui'
+import { Popover, Select, Option } from 'element-ui'
 import '../renderer/styles/normalize.css'
 import '../renderer/styles/highlight.css'
 import '../renderer/styles/marked.css'
@@ -32,7 +32,7 @@ Vue.directive('demo', {
   }
 })
 
-const UIComponents = [Popover]
+const UIComponents = [Popover, Select, Option]
 for (let i = 0, len = UIComponents.length; i < len; i++) {
   Vue.component(UIComponents[i].name, UIComponents[i])
 }
