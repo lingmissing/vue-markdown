@@ -2,7 +2,7 @@
 <div>
   <h1 class="markdown-title">{{title}}</h1>
   <ul class="markdown-label-list" v-if="label">
-    <li v-for="item in label">#{{item}}</li>
+    <li v-for="item in label" :key="item">#{{item}}</li>
   </ul>
   <div v-html="getHtml" class="markdown-body"></div>
 </div>
@@ -12,16 +12,16 @@
   .markdown-label-list {
     margin: 15px 0;
     display: flex;
-  }
-  .markdown-label-list li {
-    line-height: 25px;
-    color: #fff;
-    background: #bfbfbf;
-    border-radius: 15px;
-    font-size: 15px;
-    padding: 0 10px;
-    margin-right: 10px;
-    user-select: none;
+    & li {
+      line-height: 25px;
+      color: #fff;
+      background: #bfbfbf;
+      border-radius: 15px;
+      font-size: 15px;
+      padding: 0 10px;
+      margin-right: 10px;
+      user-select: none;
+    }
   }
   .markdown-title {
     text-align: center;

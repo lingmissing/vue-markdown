@@ -8,13 +8,13 @@
         class="gloabl-category-item" 
         :class="activeClass('text')"  
         @click="setActiveCategory('text')">
-        <i class="icon icon-text"></i><span>笔记</span>
+        <i class="icon el-icon-document"></i><span>笔记</span>
       </li>
       <li 
         class="gloabl-category-item" 
         :class="activeClass('trash')"  
         @click="setActiveCategory('trash')">
-        <i class="icon icon-trash"></i><span>废纸篓</span>
+        <i class="icon el-icon-delete"></i><span>废纸篓</span>
       </li>
       <br>
       <li 
@@ -24,7 +24,7 @@
         @contextmenu="setMenu(item)" 
         :key="item" 
         @click="setActiveCategory(item)">
-          <i class="icon icon-category"></i>
+          <i class="icon el-icon-menu"></i>
           <span v-if="item !== renameInfo">{{item}}</span>
           <input
             v-else
@@ -88,24 +88,10 @@
       outline: 0;
     }
     & .icon {
-      display: block;
-      width: 30px;
-      height: 30px;
-      background-size: 12px;
-      background-repeat: no-repeat;
-      background-position: center;
-      margin-right: 5px;
+      font-size: 14px;
+      line-height: 30px;
+      padding-right: 15px;
     }
-  }
-
-  .icon-text {
-    background-image: url('../../assets/text.png');
-  }
-  .icon-trash {
-    background-image: url('../../assets/trash.png');
-  }
-  .icon-category {
-    background-image: url('../../assets/category.png');
   }
 </style>
 

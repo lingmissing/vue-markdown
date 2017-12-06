@@ -5,14 +5,15 @@
       :class="currentLayout === 2 ? 'max-height' : ''">
       <div class="search-box">
         <div class="search-input" v-if="showSearch">
+          <i class="el-icon-search"></i>
           <input type="text" placeholder="搜索笔记" v-model="searchText">
-          <i class="icon-close" v-if="searchText" @click="toggleSearch(false)"></i>
+          <i class="icon-close el-icon-error" v-if="searchText" @click="toggleSearch(false)"></i>
         </div>
         <div v-else class="search-tip" @click="toggleSearch(true)">
-          <span class="icon-search">搜索笔记</span>
+          <span class="icon-search"><i class="el-icon-search"></i>搜索笔记</span>
         </div>
       </div>
-      <span class="new-md" @click="addList"></span>
+      <i class="el-icon-edit-outline new-md" @click="addList"></i>
     </div>
     <ul class="md-list">
       <transition-group name="list" tag="li">
@@ -63,11 +64,8 @@
       }
 
       & .new-md {
-        display: block;
-        width: 26px;
-        height: 26px;
-        background: url('../../assets/edit.png') no-repeat center;
-        background-size: 20px;
+        font-size: 26px;
+        color: #bfbfbf;
       }
     }
   }
@@ -84,21 +82,23 @@
       height: 100%;
       border: 1px solid #eee;
       border-radius: 5px;
-      background: url('../../assets/search.png') no-repeat 10px;
-      background-size: 14px;
       padding-left: 30px;
       padding-right: 22px;
       overflow: hidden;
+      & .el-icon-search {
+        color: #bfbfbf;
+        position: absolute;
+        top: 5px;
+        left: 8px;
+        font-size: 14px;
+      }
       & .icon-close {
         display: none;
         position: absolute;
         top: 5px;
         right: 5px;
-        width: 14px;
-        height: 14px;
-        border-radius: 50%;
-        background: url('../../assets/close-white.png') no-repeat center #bfbfbf;
-        background-size: 8px;
+        font-size: 14px;
+        color: #bfbfbf;
       }
       &:hover {
         & .icon-close {
@@ -127,9 +127,10 @@
         display: inline-block;
         width: 80px;
         height: 100%;
-        background: url('../../assets/search.png') no-repeat left;
-        background-size: 14px;
         color: #bfbfbf;
+        i {
+          margin-right: 5px;
+        }
       }
     }
   }
