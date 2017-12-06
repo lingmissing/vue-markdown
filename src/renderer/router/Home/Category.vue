@@ -42,13 +42,13 @@
 
 <style>
   .slide-fade-enter-active {
-    transition: all .2s ease;
+    transition: all 0.2s ease;
   }
   .slide-fade-leave-active {
-    transition: all .2s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    transition: all 0.2s cubic-bezier(1, 0.5, 0.8, 1);
   }
-  .slide-fade-enter, .slide-fade-leave-to
-  /* .slide-fade-leave-active for below version 2.1.8 */ {
+  .slide-fade-enter,
+  .slide-fade-leave-to {
     transform: translateX(-10px);
     opacity: 0;
   }
@@ -56,21 +56,14 @@
     background: #2f3235;
     width: 150px;
     user-select: none;
+
+    & .category-header {
+      position: relative;
+      height: 50px;
+      -webkit-app-region: drag;
+    }
   }
-  .category-header {
-    position: relative;
-    height: 50px;
-    -webkit-app-region: drag;
-  }
-  .gloabl-category {
-    padding: 0;
-  }
-  .edit-category {
-    border-width: 0;
-    background: transparent;
-    color: #fff;
-    outline: 0;
-  }
+
   .gloabl-category-item {
     display: block;
     height: 30px;
@@ -81,24 +74,30 @@
     cursor: default;
     transition: all 0.3s;
     background: transparent;
+    &.active {
+      background: #cb5654;
+      color: #fff;
+      &.gray {
+        background: #424747;
+      }
+    }
+    & .edit-category {
+      border-width: 0;
+      background: transparent;
+      color: #fff;
+      outline: 0;
+    }
+    & .icon {
+      display: block;
+      width: 30px;
+      height: 30px;
+      background-size: 12px;
+      background-repeat: no-repeat;
+      background-position: center;
+      margin-right: 5px;
+    }
   }
 
-  .gloabl-category-item.active {
-    background: #cb5654;
-    color: #fff;
-  }
-  .gloabl-category-item.active.gray {
-    background: #424747;
-  }
-  .gloabl-category-item .icon {
-    display: block;
-    width: 30px;
-    height: 30px;
-    background-size: 12px;
-    background-repeat: no-repeat;
-    background-position: center;
-    margin-right: 5px;
-  }
   .icon-text {
     background-image: url('../../assets/text.png');
   }
@@ -134,7 +133,9 @@
     },
     methods: {
       saveCategory() {
-        this.categorys = this.categorys.map(item => item === this.renameInfo ? this.editInfo : item)
+        this.categorys = this.categorys.map(
+          item => (item === this.renameInfo ? this.editInfo : item)
+        )
       },
       setMenu(menu) {
         const template = [

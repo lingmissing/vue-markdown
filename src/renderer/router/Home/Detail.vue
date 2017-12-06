@@ -34,95 +34,98 @@
 
 
 <style>
-  .top-btn-list {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-  }
+  .top-btn-list,
   .bottom-btn-list {
     position: fixed;
-    bottom: 20px;
     right: 20px;
+    & .detail-icon {
+      display: block;
+      width: 20px;
+      height: 20px;
+      background-size: 18px;
+      background-position: center;
+      background-repeat: no-repeat;
+      margin-bottom: 10px;
+    }
+    & .icon-view {
+      background-image: url('../../assets/view.png');
+    }
+    & .icon-layout {
+      background-image: url('../../assets/layout.png');
+    }
+    & .icon-pen {
+      background-image: url('../../assets/pen.png');
+    }
+    & .icon-remove {
+      background-image: url('../../assets/remove.png');
+    }
   }
-  .detail-icon {
-    display: block;
-    width: 20px;
-    height: 20px;
-    background-size: 18px;
-    background-position: center;
-    background-repeat: no-repeat;
-    margin-bottom: 10px;
-  }
-  .icon-view {
-    background-image: url('../../assets/view.png');
-  }
-  .icon-layout {
-    background-image: url('../../assets/layout.png');
-  }
-  .icon-pen {
-    background-image: url('../../assets/pen.png');
-  }
-  .icon-remove {
-    background-image: url('../../assets/remove.png');
-  }
+
   .detail-box {
     background: #fbfbfb;
     flex: 1;
     position: relative;
     overflow-y: auto;
     overflow-x: hidden;
+    & .top-btn-list {
+      top: 20px;
+    }
+    & .bottom-btn-list {
+      bottom: 20px;
+    }
+    & .detail-header {
+      position: fixed;
+      top: 0;
+      left: 330px;
+      right: 40px;
+      height: 50px;
+      z-index: 10;
+      -webkit-app-region: drag;
+    }
   }
-  .detail-header {
-    position: fixed;
-    top: 0;
-    left: 330px;
-    right: 40px;
-    height: 50px;
-    z-index: 10;
-    -webkit-app-region: drag;
-  }
+
   .detail-md-box {
-    padding: 0 115px 0 80px;
+    padding: 50px 115px 0 80px;
     display: flex;
     flex-direction: column;
-    min-height: calc(100% - 50px);
+    min-height: 100%;
     max-width: 1000px;
     margin: 0 auto;
-  }
-  .detail-title {
-    width: 100%;
-    height: 50px;
-    border-bottom: 1px solid #ddd;
-  }
-  .detail-title input {
-    caret-color: #cb5654;
-    background: #fbfbfb;
-    border-width: 0;
-    width: 100%;
-    height: 100%;
-    appearance: none;
-    outline: 0;
-    font-size: 18px;
-  }
-  .detail-content {
-    flex: 1;
-    margin-top: 10px;
-    overflow: hidden;
-    padding-bottom: 20px;
-    position: relative;
-  }
-  .detail-content textarea {
-    position: absolute;
-    bottom: 20px;
-    caret-color: #cb5654;
-    width: 100%;
-    height: 100%;
-    background: #fbfbfb;
-    appearance: none;
-    outline: 0;
-    border-width: 0;
-    font-size: 14px;
-    line-height: 25px;
+    & .detail-title {
+      width: 100%;
+      height: 50px;
+      border-bottom: 1px solid #ddd;
+      & input {
+        caret-color: #cb5654;
+        background: #fbfbfb;
+        border-width: 0;
+        width: 100%;
+        height: 100%;
+        appearance: none;
+        outline: 0;
+        font-size: 18px;
+      }
+    }
+    & .detail-content {
+      flex: 1;
+      margin-top: 10px;
+      overflow: hidden;
+      padding-bottom: 20px;
+      position: relative;
+      & textarea {
+        position: absolute;
+        bottom: 20px;
+        caret-color: #cb5654;
+        width: 100%;
+        height: 100%;
+        background: #fbfbfb;
+        appearance: none;
+        outline: 0;
+        border-width: 0;
+        font-size: 14px;
+        line-height: 25px;
+      }
+    }
   }
 </style>
 <script>

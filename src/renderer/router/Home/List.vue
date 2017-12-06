@@ -36,8 +36,6 @@
 
 
 <style>
-  .list-item {
-  }
   .list-enter-active,
   .list-leave-active {
     transition: all 0.3s;
@@ -53,83 +51,87 @@
     border-right: 1px solid #dedede;
     display: flex;
     flex-direction: column;
+    & .list-header {
+      height: 50px;
+      -webkit-app-region: drag;
+      padding: 12px 15px;
+      display: flex;
+      border-bottom: 1px solid #bfbfbf;
+      &.max-height {
+        height: 65px;
+        padding-top: 27px;
+      }
+
+      & .new-md {
+        display: block;
+        width: 26px;
+        height: 26px;
+        background: url('../../assets/edit.png') no-repeat center;
+        background-size: 20px;
+      }
+    }
   }
-  .list-header {
-    height: 50px;
-    -webkit-app-region: drag;
-    padding: 12px 15px;
-    display: flex;
-    border-bottom: 1px solid #bfbfbf;
-  }
-  .list-header.max-height {
-    height: 65px;
-    padding-top: 27px;
-  }
+
   .search-box {
     height: 26px;
     -webkit-app-region: no-drag;
     flex: 1;
     padding-right: 10px;
     background: #fff;
-  }
-  .search-input {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    border: 1px solid #eee;
-    border-radius: 5px;
-    background: url('../../assets/search.png') no-repeat 10px;
-    background-size: 14px;
-    padding-left: 30px;
-    padding-right: 22px;
-    overflow: hidden;
-  }
-  .search-input input {
-    width: 100%;
-    height: 100%;
-    border-width: 0;
-    appearance: none;
-    outline: 0;
-    color: #555;
-  }
-  .search-input .icon-close {
-    display: none;
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: url('../../assets/close-white.png') no-repeat center #bfbfbf;
-    background-size: 8px;
-  }
-  .search-input:hover .icon-close {
-    display: block;
-  }
-  .search-tip {
-    width: 100%;
-    height: 100%;
-    line-height: 24px;
-    border: 1px solid #eee;
-    width: 100%;
-    text-align: center;
-    cursor: default;
-    border-radius: 5px;
-  }
-  .icon-search {
-    display: inline-block;
-    width: 80px;
-    height: 100%;
-    background: url('../../assets/search.png') no-repeat left;
-    background-size: 14px;
-    color: #bfbfbf;
-  }
-  .new-md {
-    display: block;
-    width: 26px;
-    height: 26px;
-    background: url('../../assets/edit.png') no-repeat center;
-    background-size: 20px;
+    & .search-input {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border: 1px solid #eee;
+      border-radius: 5px;
+      background: url('../../assets/search.png') no-repeat 10px;
+      background-size: 14px;
+      padding-left: 30px;
+      padding-right: 22px;
+      overflow: hidden;
+      & .icon-close {
+        display: none;
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: url('../../assets/close-white.png') no-repeat center #bfbfbf;
+        background-size: 8px;
+      }
+      &:hover {
+        & .icon-close {
+          display: block;
+        }
+      }
+      & input {
+        width: 100%;
+        height: 100%;
+        border-width: 0;
+        appearance: none;
+        outline: 0;
+        color: #555;
+      }
+    }
+    & .search-tip {
+      width: 100%;
+      height: 100%;
+      line-height: 24px;
+      border: 1px solid #eee;
+      width: 100%;
+      text-align: center;
+      cursor: default;
+      border-radius: 5px;
+      & .icon-search {
+        display: inline-block;
+        width: 80px;
+        height: 100%;
+        background: url('../../assets/search.png') no-repeat left;
+        background-size: 14px;
+        color: #bfbfbf;
+      }
+    }
   }
 
   .md-list {
@@ -142,57 +144,57 @@
     position: relative;
     cursor: default;
     user-select: none;
-  }
-  .md-list-item.active {
-    background: #fff;
-  }
-  .md-list-item.active.gray {
-    background: #efefef;
-  }
-  .md-list-item:before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    background: #cb5654;
-    height: 100%;
-    width: 6px;
-    transition: all 0.3s;
-    transform: scale(0);
-  }
-  .md-list-item.active:before {
-    transform: scale(1);
-  }
-  .md-list-item.active.gray:before {
-    background: #999;
-  }
-  .md-list-item .md-time {
-    padding: 15px 0 15px 15px;
-    width: 50px;
-    color: #bfbfbf;
-    text-align: center;
-    font-size: 14px;
-  }
-  .md-list-item .md-content {
-    padding: 15px 15px 15px 0;
-    font-size: 14px;
-    flex: 1;
-    overflow: hidden;
-    border-bottom: 1px solid #ddd;
-  }
-  .md-content .md-title {
-    font-size: 14px;
-    color: #333;
-    margin-bottom: 10px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .md-content .md-detail {
-    font-family: PingFangSC-Light;
-    color: #bfbfbf;
-    line-height: 22px;
-    font-size: 14px;
+    &.active {
+      background: #fff;
+      &.gray {
+        background: #efefef;
+        &:before {
+          background: #999;
+        }
+      }
+      &:before {
+        transform: scale(1);
+      }
+    }
+    &:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      background: #cb5654;
+      height: 100%;
+      width: 6px;
+      transition: all 0.3s;
+      transform: scale(0);
+    }
+    & .md-time {
+      padding: 15px 0 15px 15px;
+      width: 50px;
+      color: #bfbfbf;
+      text-align: center;
+      font-size: 14px;
+    }
+    & .md-content {
+      padding: 15px 15px 15px 0;
+      font-size: 14px;
+      flex: 1;
+      overflow: hidden;
+      border-bottom: 1px solid #ddd;
+      & .md-title {
+        font-size: 14px;
+        color: #333;
+        margin-bottom: 10px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      & .md-detail {
+        font-family: PingFangSC-Light;
+        color: #bfbfbf;
+        line-height: 22px;
+        font-size: 14px;
+      }
+    }
   }
 </style>
 
