@@ -5,7 +5,10 @@
     <i class="detail-icon icon-remove"></i>
   </div>
   <div class="bottom-btn-list">
-    <i class="detail-icon icon-pen" @click="$emit('changeLayout')"></i>
+    <el-popover ref="pen" trigger="click">
+      <Pen></Pen>
+    </el-popover>
+    <i v-popover:pen class="detail-icon icon-pen"></i>
     <i class="detail-icon icon-layout" @click="$emit('changeLayout')"></i>
   </div>
   <div class="detail-header"></div>
@@ -34,6 +37,16 @@
 
 
 <style>
+  .pen-list {
+    & .pen-item {
+      height: 25px;
+      border-radius: 5px;
+      overflow: hidden;
+      &:hover {
+        background: #efefef;
+      }
+    }
+  }
   .top-btn-list,
   .bottom-btn-list {
     position: fixed;
@@ -130,9 +143,11 @@
 </style>
 <script>
   import MarkedContent from '@/components/MarkedContent'
+  import Pen from '@/components/Pen'
   export default {
     name: 'Detail',
     components: {
+      Pen,
       MarkedContent
     },
     data() {

@@ -4,11 +4,10 @@ import { remote } from 'electron'
 import App from './App'
 import router from './router'
 import store from './store'
-import { Button } from 'element-ui'
+import { Popover } from 'element-ui'
 import '../renderer/styles/normalize.css'
 import '../renderer/styles/highlight.css'
 import '../renderer/styles/marked.css'
-// import 'element-ui/lib/theme-chalk/alert.css'
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 
@@ -33,7 +32,7 @@ Vue.directive('demo', {
   }
 })
 
-const UIComponents = [Button]
+const UIComponents = [Popover]
 for (let i = 0, len = UIComponents.length; i < len; i++) {
   Vue.component(UIComponents[i].name, UIComponents[i])
 }
