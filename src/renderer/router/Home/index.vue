@@ -10,6 +10,7 @@
     :currentLayout="currentLayout"
     @currentClick="getCurrentType($event)"></List>
   <Detail
+    :currentLayout="currentLayout" 
     @changeLayout="changeLayout"></Detail>
 </main>
 </template>

@@ -1,19 +1,19 @@
 <template>
 <div class="detail-box">
   <div class="top-btn-list">
-    <i class="detail-icon el-icon-view" @click="toggleEdit"></i>
+    <i class="detail-icon" :class="edit ? 'eye-open' : 'eye-close'" @click="toggleEdit"></i>
     <i class="detail-icon el-icon-delete"></i>
   </div>
   <div class="bottom-btn-list">
     <el-popover ref="pen" trigger="click">
       <Pen @handlePen="handlePen($event)"></Pen>
     </el-popover>
-    <i v-popover:pen class="detail-icon icon-pen"></i>
+    <i v-show="edit" v-popover:pen class="detail-icon icon-pen"></i>
     <i class="detail-icon icon-layout" @click="$emit('changeLayout')"></i>
   </div>
-  <div class="detail-header"></div>
+  <div class="detail-header" :style="detailHeaderStyle"></div>
   <div class="detail-md-box">
-    <div class="detail-title" v-if="edit">
+    <div class="detail-title" v-show="edit">
       <input type="text" v-model="detailTitle" placeholder="未命名新笔记">
     </div>
     <el-select
@@ -82,17 +82,17 @@
       background-repeat: no-repeat;
       margin-bottom: 10px;
     }
-    & .icon-view {
-      background-image: url('../../assets/view.png');
+    & .eye-close {
+      background-image: url('../../assets/eye-close.png');
+    }
+    & .eye-open {
+      background-image: url('../../assets/eye-open.png');
     }
     & .icon-layout {
       background-image: url('../../assets/layout.png');
     }
     & .icon-pen {
       background-image: url('../../assets/pen.png');
-    }
-    & .icon-remove {
-      background-image: url('../../assets/remove.png');
     }
   }
 
@@ -173,6 +173,9 @@
       Pen,
       MarkedContent
     },
+    props: {
+      currentLayout: Number
+    },
     data() {
       return {
         edit: false,
@@ -197,6 +200,15 @@
       }
     },
     mounted() {},
+    computed: {
+      detailHeaderStyle() {
+        const left =
+          this.currentLayout === 1 ? 0 : this.currentLayout === 2 ? '280px' : '430px'
+        return {
+          left
+        }
+      }
+    },
     methods: {
       setContextMenu() {
         const template = [

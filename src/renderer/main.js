@@ -9,8 +9,14 @@ import '../renderer/styles/normalize.css'
 import '../renderer/styles/highlight.css'
 import '../renderer/styles/marked.css'
 
+import mavonEditor from 'mavon-editor'
+// 可以通过 mavonEditor.markdownIt 获取解析器markdown-it对象
+import 'mavon-editor/dist/css/index.css'
+
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 
+// use
+Vue.use(mavonEditor)
 Vue.directive('focus', {
   inserted: el => {
     el.focus()
