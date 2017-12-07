@@ -9,7 +9,7 @@ import '../renderer/styles/normalize.css'
 // import '../renderer/styles/highlight.css'
 // import '../renderer/styles/marked.css'
 
-import mavonEditor from './components/Editor/mavon-editor'
+import mavonEditor from 'mavon-editor'
 // 可以通过 mavonEditor.markdownIt 获取解析器markdown-it对象
 import 'mavon-editor/dist/css/index.css'
 

@@ -460,3 +460,6 @@ body,
 li {
   list-style: none;
 }
+.markdown-body code {
+  font-size: 14px !important;
+}

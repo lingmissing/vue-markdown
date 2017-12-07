@@ -1,23 +1,26 @@
 <template>
 <div class="detail-box">
   <div class="top-btn-list">
-    <i class="detail-icon" :class="edit ? 'fa-mavon-eye' : 'fa-mavon-eye-slash'" @click="mdAction('preview')"></i>
+    <!-- <i class="detail-icon" :class="edit ? 'fa-mavon-eye' : 'fa-mavon-eye-slash'" @click="mdAction('preview')"></i> -->
     <!-- <i class="detail-icon fa-mavon-bars" @click="mdAction('navigation')"></i> -->
-    <i class="detail-icon fa-mavon-arrows-alt" @click="mdAction('read')"></i>
+    <!-- <i class="detail-icon fa-mavon-arrows-alt" @click="mdAction('read')"></i> -->
     <!-- <i class="detail-icon fa-mavon-window-maximize" @click="mdAction('fullscreen')"></i> -->
-    <i class="detail-icon fa-mavon-columns" @click="mdAction('subfield')"></i>
+    <!-- <i
+      class="detail-icon " 
+      :class="subfield ? 'fa-mavon-window-maximize' : 'fa-mavon-columns'" 
+      @click="mdAction('subfield')"></i> -->
     <i class="detail-icon fa-mavon-trash-o" @click="deleteFile"></i>
   </div>
   <div class="bottom-btn-list">
     <el-popover ref="pen" trigger="click">
       <Pen @editMd="editMd($event)"></Pen>
     </el-popover>
-    <i v-show="edit" v-popover:pen class="detail-icon icon-pen"></i>
+    <i v-popover:pen class="detail-icon icon-pen"></i>
     <i class="detail-icon icon-layout" @click="$emit('changeLayout')"></i>
   </div>
   <div class="detail-header" :style="detailHeaderStyle"></div>
   <div class="detail-md-box">
-    <div class="detail-title" v-show="edit">
+    <!-- <div class="detail-title" v-show="edit">
       <input type="text" v-model="detailTitle" placeholder="未命名新笔记">
     </div>
     <el-select
@@ -33,13 +36,18 @@
         :label="item.label"
         :value="item.value">
       </el-option>
-    </el-select>
+    </el-select> -->
     <div class="detail-content" >
       <mavon-editor
         ref="editor"
-        default_open="edit"
         code_style="rainbow"
-        :toolbarsFlag="false"
+        :toolbarsFlag="true"
+        :toolbars="{
+          fullscreen: true, // 全屏编辑
+          readmodel: true, // 沉浸式阅读
+          subfield: true,
+          preview: true
+        }"
         placeholder="调整心情，写点东西"
         v-model="detailContent"/>
     </div>
@@ -55,31 +63,49 @@
     & .v-note-panel {
       box-shadow: 0 0px 0px rgba(0, 0, 0, 0.157);
     }
+    & .auto-textarea-block {
+      margin-top: 10px;
+    }
     & .content-input-wrapper,
     & .v-show-content {
       padding: 0;
     }
-  }
-
-  .el-select {
-    font-family: PingFangSC-Regular, Microsoft Yahei;
-    display: block;
-    margin-top: 10px;
-    & .el-input__suffix {
-      display: none;
-    }
-    & input {
+    & .v-note-op {
       background: transparent;
-      border-width: 0;
-      padding: 0;
-      &::placeholder {
-        color: #bfbfbf;
+      & .right {
+        max-width: 100%;
       }
     }
+    mark {
+      height: 20px;
+      display: inline-block;
+      background: #ccc;
+      border-radius: 10px;
+      padding: 0 10px;
+      color: #fff;
+      line-height: 20px;
+    }
   }
-  .el-select-dropdown.is-multiple .el-select-dropdown__item.selected {
-    color: #c55d62;
-  }
+
+  /* .el-select {
+          font-family: PingFangSC-Regular, Microsoft Yahei;
+          display: block;
+          margin-top: 10px;
+          & .el-input__suffix {
+            display: none;
+          }
+          & input {
+            background: transparent;
+            border-width: 0;
+            padding: 0;
+            &::placeholder {
+              color: #bfbfbf;
+            }
+          }
+        }
+        .el-select-dropdown.is-multiple .el-select-dropdown__item.selected {
+          color: #c55d62;
+        } */
   .top-btn-list,
   .bottom-btn-list {
     position: fixed;
@@ -133,7 +159,7 @@
   }
 
   .detail-md-box {
-    padding: 50px 115px 0 80px;
+    padding: 20px 115px 0 80px;
     display: flex;
     flex-direction: column;
     min-height: 100%;
@@ -190,7 +216,8 @@
     },
     data() {
       return {
-        edit: true,
+        edit: false,
+        subfield: false,
         labelOptions: [
           {
             value: 'javascript',
@@ -264,6 +291,15 @@
         this.$refs.editor.toolbar_left_click(type)
       },
       mdAction(type) {
+        if (type === 'preview') {
+          this.edit = !this.edit
+        }
+        if (type === 'subfield') {
+          this.subfield = !this.subfield
+        }
+        if (type === 'read') {
+          this.edit = true
+        }
         this.$refs.editor.toolbar_right_click(type)
       },
       deleteFile() {}
