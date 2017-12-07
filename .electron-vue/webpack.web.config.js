@@ -77,6 +77,10 @@ let webConfig = {
             name: 'fonts/[name].[ext]'
           }
         }
+      },
+      {
+        test: /\.md$/,
+        use: ['html-loader', 'markdown-loader']
       }
     ]
   },

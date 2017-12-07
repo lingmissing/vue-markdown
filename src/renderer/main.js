@@ -6,10 +6,10 @@ import router from './router'
 import store from './store'
 import { Popover, Select, Option } from 'element-ui'
 import '../renderer/styles/normalize.css'
-import '../renderer/styles/highlight.css'
-import '../renderer/styles/marked.css'
+// import '../renderer/styles/highlight.css'
+// import '../renderer/styles/marked.css'
 
-import mavonEditor from 'mavon-editor'
+import mavonEditor from './components/Editor/mavon-editor'
 // 可以通过 mavonEditor.markdownIt 获取解析器markdown-it对象
 import 'mavon-editor/dist/css/index.css'
 

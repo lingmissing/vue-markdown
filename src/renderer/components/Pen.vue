@@ -4,8 +4,9 @@
       class="pen-item"
       v-for="(item, index) in penData"
       :key="index"
-      @click="$emit('handlePen', item.key)"
+      @click="$emit('editMd', item.key)"
       :class="item.key === 'separator' ? 'separator' : ''">
+      <i class="pen-icon" :class="item.icon"></i>
       <span class="pen-style">{{item.label}}</span>
       <span class="pen-accelerator">{{item.accelerator}}</span>
     </li>
@@ -15,6 +16,8 @@
 
 <style>
   .pen-list {
+    max-height: 400px;
+    overflow-y: auto;
     & .pen-item {
       width: 200px;
       height: 25px;
@@ -48,78 +51,145 @@
       return {
         penData: [
           {
-            label: '# 1号标题',
-            accelerator: 'fff 1',
-            key: '#'
-          },
-          {
-            label: '## 2号标题',
-            accelerator: '',
-            key: '##'
-          },
-          {
-            label: '### 3号标题',
-            accelerator: '',
-            key: '###'
-          },
-          {
-            label: '--- 行分割符',
-            accelerator: '',
-            key: '---'
-          },
-          {
-            key: 'separator'
-          },
-          {
+            icon: 'fa-mavon-bold',
             label: '**粗体**',
-            accelerator: '',
-            key: '**'
+            accelerator: '⌘B',
+            key: 'bold'
           },
           {
+            icon: 'fa-mavon-italic',
             label: '*斜体*',
-            accelerator: '',
-            key: '*'
+            accelerator: '⌘I',
+            key: 'italic'
           },
           {
+            icon: 'fa-mavon-header',
+            label: '# 标题',
+            accelerator: '⌘H',
+            key: 'header'
+          },
+          {
+            key: 'separator'
+          },
+          {
+            icon: 'fa-mavon-underline',
+            label: '下划线',
+            accelerator: '⌘U',
+            key: 'underline'
+          },
+          {
+            icon: 'fa-mavon-strikethrough',
             label: '~~删除线~~',
-            accelerator: '',
-            key: '~~'
+            accelerator: '⌘D',
+            key: 'strikethrough'
           },
           {
-            label: '[链接标题](URL)',
-            accelerator: '',
-            key: '[]'
+            icon: 'fa-mavon-thumb-tack',
+            label: '标记',
+            accelerator: '⌘M',
+            key: 'mark'
+          },
+          {
+            icon: 'fa-mavon-superscript',
+            label: '上角标',
+            accelerator: '⌘⌥S',
+            key: 'superscript'
+          },
+          {
+            icon: 'fa-mavon-subscript',
+            label: '下角标',
+            accelerator: '⌘⇧S',
+            key: 'subscript'
+          },
+          {
+            icon: 'fa-mavon-align-left',
+            label: '居左',
+            accelerator: '⌘L',
+            key: 'alignleft'
+          },
+          {
+            icon: 'fa-mavon-align-center',
+            label: '居中',
+            accelerator: '⌘E',
+            key: 'aligncenter'
+          },
+          {
+            icon: 'fa-mavon-align-right',
+            label: '居右',
+            accelerator: '⌘R',
+            key: 'alignright'
           },
           {
             key: 'separator'
           },
           {
-            label: '* 列表',
-            accelerator: '',
-            key: '*'
+            icon: 'fa-mavon-quote-left',
+            label: '段落引用',
+            accelerator: '⌘Q',
+            key: 'quote'
           },
           {
-            label: '1.排序列表',
-            accelerator: '',
-            key: '1.'
+            icon: 'fa-mavon-list-ol',
+            label: '有序列表',
+            accelerator: '⌘O',
+            key: 'ol'
           },
           {
-            label: '> 引用',
-            accelerator: '',
-            key: '>'
+            icon: 'fa-mavon-list-ul',
+            label: '无序列表',
+            accelerator: '⌘⌥U',
+            key: 'ul'
+          },
+          {
+            icon: 'fa-mavon-link',
+            label: '链接',
+            accelerator: '⌘L',
+            key: 'link'
+          },
+          {
+            icon: 'fa-mavon-picture-o',
+            label: '图片',
+            accelerator: '⌘⌥I',
+            key: 'imagelink'
+          },
+          {
+            icon: 'fa-mavon-code',
+            label: '代码块',
+            accelerator: '⌘⌥C',
+            key: 'code'
+          },
+          {
+            icon: 'fa-mavon-table',
+            label: '表格',
+            accelerator: '⌘⌥T',
+            key: 'table'
           },
           {
             key: 'separator'
           },
           {
-            label: '`代码`',
-            accelerator: '',
-            key: '`'
+            icon: 'fa-mavon-undo',
+            label: '上一步',
+            accelerator: '⌘Z',
+            key: 'undo'
           },
           {
-            label: '```代码块```',
-            accelerator: '',
-            key: '```'
+            icon: 'fa-mavon-repeat',
+            label: '下一步',
+            accelerator: '⌘Y',
+            key: 'redo'
+          },
+          {
+            icon: 'fa-mavon-trash-o',
+            label: '清空',
+            accelerator: '⌘Del',
+            key: 'trash'
+          },
+          {
+            icon: 'fa-mavon-floppy-o',
+            label: '保存',
+            accelerator: '⌘S',
+            key: 'save'
           }
         ]
       }
