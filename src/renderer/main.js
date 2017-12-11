@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import axios from 'axios'
-import { remote } from 'electron'
+import { remote, webFrame } from 'electron'
 import App from './App'
 import router from './router'
 import store from './store'
@@ -11,6 +11,9 @@ import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
+
+// 阻止放大
+webFrame.setZoomLevelLimits(1, 1)
 
 // use
 Vue.use(mavonEditor)

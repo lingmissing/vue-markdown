@@ -42,23 +42,23 @@ let template = [
   {
     label: '查看',
     submenu: [
-      {
-        label: '重载',
-        // accelerator: 'CmdOrCtrl+R',
-        click: function(item, focusedWindow) {
-          if (focusedWindow) {
-            // 重载之后, 刷新并关闭所有的次要窗体
-            if (focusedWindow.id === 1) {
-              BrowserWindow.getAllWindows().forEach(function(win) {
-                if (win.id > 1) {
-                  win.close()
-                }
-              })
-            }
-            focusedWindow.reload()
-          }
-        }
-      },
+      // {
+      //   label: '重载',
+      //   // accelerator: 'CmdOrCtrl+R',
+      //   click: function(item, focusedWindow) {
+      //     if (focusedWindow) {
+      //       // 重载之后, 刷新并关闭所有的次要窗体
+      //       if (focusedWindow.id === 1) {
+      //         BrowserWindow.getAllWindows().forEach(function(win) {
+      //           if (win.id > 1) {
+      //             win.close()
+      //           }
+      //         })
+      //       }
+      //       focusedWindow.reload()
+      //     }
+      //   }
+      // },
       {
         label: '切换全屏',
         accelerator: (function() {

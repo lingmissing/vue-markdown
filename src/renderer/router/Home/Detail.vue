@@ -1,15 +1,7 @@
 <template>
 <div class="detail-box">
   <div class="top-btn-list">
-    <!-- <i class="detail-icon" :class="edit ? 'fa-mavon-eye' : 'fa-mavon-eye-slash'" @click="mdAction('preview')"></i> -->
-    <!-- <i class="detail-icon fa-mavon-bars" @click="mdAction('navigation')"></i> -->
-    <!-- <i class="detail-icon fa-mavon-arrows-alt" @click="mdAction('read')"></i> -->
-    <!-- <i class="detail-icon fa-mavon-window-maximize" @click="mdAction('fullscreen')"></i> -->
-    <!-- <i
-      class="detail-icon " 
-      :class="subfield ? 'fa-mavon-window-maximize' : 'fa-mavon-columns'" 
-      @click="mdAction('subfield')"></i> -->
-    <i class="detail-icon el-icon-delete " @click="deleteFile"></i>
+    
   </div>
   <div class="bottom-btn-list">
     <el-popover ref="pen" trigger="click">
@@ -17,26 +9,10 @@
     </el-popover>
     <i v-popover:pen class="detail-icon icon-pen"></i>
     <i class="detail-icon icon-layout" @click="$emit('changeLayout')"></i>
+    <i class="detail-icon el-icon-delete " @click="deleteFile"></i>
   </div>
   <div class="detail-header" :style="detailHeaderStyle"></div>
   <div class="detail-md-box">
-    <!-- <div class="detail-title" v-show="edit">
-      <input type="text" v-model="detailTitle" placeholder="未命名新笔记">
-    </div>
-    <el-select
-      v-if="edit"
-      v-model="detailLabel"
-      multiple
-      filterable
-      allow-create
-      placeholder="请选择标签">
-      <el-option
-        v-for="item in labelOptions"
-        :key="item.value"
-        :label="item.label"
-        :value="item.value">
-      </el-option>
-    </el-select> -->
     <div class="detail-content" @contextmenu="setContextMenu">
       <mavon-editor
         ref="editor"
@@ -70,12 +46,22 @@
     }
     & .content-input-wrapper,
     & .v-show-content {
-      padding: 0;
+      /* padding: 0; */
     }
     & .v-note-op {
+      box-shadow: 0 0 0 transparent;
       background: transparent;
+      position: fixed;
+      right: 21px;
+      width: 28px;
+      top: 30px;
       & .right {
         max-width: 100%;
+        padding: 0;
+        & button {
+          margin: 2px 0;
+          color: #bfbfbf;
+        }
       }
     }
     mark {
@@ -146,53 +132,26 @@
   }
 
   .detail-md-box {
-    padding: 20px 115px 0 80px;
+    padding: 20px 100px 0 70px;
     display: flex;
     flex-direction: column;
     min-height: 100%;
     max-width: 1000px;
     margin: 0 auto;
-    /* & .detail-title {
-                                                                                                                width: 100%;
-                                                                                                                height: 50px;
-                                                                                                                border-bottom: 1px solid #ddd;
-                                                                                                                & input {
-                                                                                                                  caret-color: #cb5654;
-                                                                                                                  background: #fbfbfb;
-                                                                                                                  border-width: 0;
-                                                                                                                  width: 100%;
-                                                                                                                  height: 100%;
-                                                                                                                  appearance: none;
-                                                                                                                  outline: 0;
-                                                                                                                  font-size: 18px;
-                                                                                                                }
-                                                                                                              } */
+
     & .detail-content {
       flex: 1;
       margin-top: 10px;
       overflow: hidden;
       padding-bottom: 20px;
       position: relative;
-      /* & textarea {
-                                                                                                                  resize: none;
-                                                                                                                  position: absolute;
-                                                                                                                  bottom: 20px;
-                                                                                                                  caret-color: #cb5654;
-                                                                                                                  width: 100%;
-                                                                                                                  height: 100%;
-                                                                                                                  background: #fbfbfb;
-                                                                                                                  appearance: none;
-                                                                                                                  outline: 0;
-                                                                                                                  border-width: 0;
-                                                                                                                  font-size: 14px;
-                                                                                                                  line-height: 25px;
-                                                                                                                } */
     }
   }
 </style>
 
 <script>
   import Pen from '@/components/Pen'
+  import { clipboard } from 'electron'
   export default {
     name: 'Detail',
     components: {
@@ -238,9 +197,9 @@
             role: 'cut'
           },
           {
-            label: '拷贝',
+            label: '复制Markdown',
             click: () => {
-              this.copy()
+              clipboard.writeText(this.content)
             }
           },
           {
@@ -256,7 +215,7 @@
           {
             label: '预览',
             click: () => {
-              this.edit = false
+              this.$refs.editor.toolbar_right_click('preview')
             }
           }
         ]
@@ -292,16 +251,6 @@
         }).then(res => {
           console.log(res)
         })
-      },
-      copy() {
-        const range = document.createRange()
-        range.selectNode(document.querySelector('.v-note-panel'))
-
-        const selection = window.getSelection()
-        if (selection.rangeCount > 0) selection.removeAllRanges()
-        selection.addRange(range)
-
-        document.execCommand('copy')
       }
     }
   }
