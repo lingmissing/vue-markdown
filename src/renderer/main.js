@@ -4,11 +4,8 @@ import { remote } from 'electron'
 import App from './App'
 import router from './router'
 import store from './store'
-import { Popover, Select, Option } from 'element-ui'
+import { Popover, Option } from 'element-ui'
 import '../renderer/styles/normalize.css'
-// import '../renderer/styles/highlight.css'
-// import '../renderer/styles/marked.css'
-
 import mavonEditor from 'mavon-editor'
 // 可以通过 mavonEditor.markdownIt 获取解析器markdown-it对象
 import 'mavon-editor/dist/css/index.css'
@@ -38,7 +35,7 @@ Vue.directive('demo', {
   }
 })
 
-const UIComponents = [Popover, Select, Option]
+const UIComponents = [Popover, Option]
 for (let i = 0, len = UIComponents.length; i < len; i++) {
   Vue.component(UIComponents[i].name, UIComponents[i])
 }

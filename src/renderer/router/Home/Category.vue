@@ -2,6 +2,7 @@
 <transition name="slide-fade">
   <div class="category-box" v-if="isShow">
     <div class="category-header">
+      <i class="el-icon-setting md-setting" @click="showSetting"></i>
     </div>
     <ul class="gloabl-category">
       <li 
@@ -41,6 +42,13 @@
 
 
 <style>
+  .md-setting {
+    font-size: 16px;
+    color: #cfcfcf;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+  }
   .slide-fade-enter-active {
     transition: all 0.2s ease;
   }
@@ -96,6 +104,7 @@
 </style>
 
 <script>
+  import { remote } from 'electron'
   export default {
     name: 'Category',
     props: {
@@ -118,6 +127,16 @@
       }
     },
     methods: {
+      showSetting() {
+        const { BrowserWindow } = remote
+        var win = new BrowserWindow({ width: 460, height: 510, show: false })
+        win.on('closed', function() {
+          win = null
+        })
+
+        win.loadURL('http://localhost:9080/#/setting')
+        win.show()
+      },
       saveCategory() {
         this.categorys = this.categorys.map(
           item => (item === this.renameInfo ? this.editInfo : item)

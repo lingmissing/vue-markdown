@@ -25,6 +25,7 @@
 </style>
 
 <script>
+  import { ipcRenderer } from 'electron'
   import Category from './Category'
   import MyTitle from '@/components/MyTitle'
   import Detail from './Detail'
@@ -43,7 +44,11 @@
         currentType: ''
       }
     },
-    mounted() {},
+    mounted() {
+      ipcRenderer.on('change-layout', (event, arg) => {
+        this.currentLayout = arg
+      })
+    },
     methods: {
       getCurrentType(type) {
         this.currentType = type

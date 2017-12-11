@@ -1,7 +1,4 @@
-const electron = require('electron')
-const BrowserWindow = electron.BrowserWindow
-const Menu = electron.Menu
-const app = electron.app
+import { BrowserWindow, Menu, app, dialog, shell, autoUpdater } from 'electron'
 
 let template = [
   {
@@ -47,7 +44,7 @@ let template = [
     submenu: [
       {
         label: '重载',
-        accelerator: 'CmdOrCtrl+R',
+        // accelerator: 'CmdOrCtrl+R',
         click: function(item, focusedWindow) {
           if (focusedWindow) {
             // 重载之后, 刷新并关闭所有的次要窗体
@@ -106,11 +103,7 @@ let template = [
               message:
                 '此演示用于 "菜单" 部分, 展示如何在应用程序菜单中创建可点击的菜单项.'
             }
-            electron.dialog.showMessageBox(
-              focusedWindow,
-              options,
-              function() {}
-            )
+            dialog.showMessageBox(focusedWindow, options, function() {})
           }
         }
       },
@@ -120,18 +113,26 @@ let template = [
       {
         label: '显示标签、笔记和编辑器',
         accelerator: 'Ctrl+1',
-        click: function(item, focusedWindow) {}
+        click: function(item) {
+          // console.log(BrowserWindow.getAllWindows())
+          // console.log(focusedWindow.id)
+          const mainWindow = BrowserWindow.fromId(1)
+          mainWindow.webContents.send('change-layout', 3)
+        }
       },
       {
         label: '显示笔记和编辑器',
         accelerator: 'Ctrl+2',
-        click: function(item, focusedWindow) {}
+        click: function(item) {
+          const mainWindow = BrowserWindow.fromId(1)
+          mainWindow.webContents.send('change-layout', 2)
+        }
       },
       {
         label: '显示笔记',
         accelerator: 'Ctrl+3',
         click: function(item, focusedWindow) {
-          window.alert('显示笔记')
+          focusedWindow.webContents.send('change-layout', 1)
         }
       }
     ]
@@ -171,7 +172,7 @@ let template = [
       {
         label: '学习更多',
         click: function() {
-          electron.shell.openExternal('http://electron.atom.io')
+          shell.openExternal('http://electron.atom.io')
         }
       }
     ]
@@ -181,7 +182,7 @@ let template = [
 function addUpdateMenuItems(items, position) {
   if (process.mas) return
 
-  const version = electron.app.getVersion()
+  const version = app.getVersion()
   let updateItems = [
     {
       label: `Version ${version}`,
@@ -197,7 +198,7 @@ function addUpdateMenuItems(items, position) {
       visible: false,
       key: 'checkForUpdate',
       click: function() {
-        require('electron').autoUpdater.checkForUpdates()
+        autoUpdater.checkForUpdates()
       }
     },
     {
@@ -206,7 +207,7 @@ function addUpdateMenuItems(items, position) {
       visible: false,
       key: 'restartToUpdate',
       click: function() {
-        require('electron').autoUpdater.quitAndInstall()
+        autoUpdater.quitAndInstall()
       }
     }
   ]
@@ -232,7 +233,7 @@ function findReopenMenuItem() {
 }
 
 if (process.platform === 'darwin') {
-  const name = electron.app.getName()
+  const name = app.getName()
   template.unshift({
     label: name,
     submenu: [

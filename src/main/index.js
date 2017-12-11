@@ -30,7 +30,7 @@ function createWindow() {
     useContentSize: true,
     width: 1000
   })
-
+  // 加载url
   mainWindow.loadURL(winURL)
 
   mainWindow.webContents.session.on('will-download', (e, item) => {
