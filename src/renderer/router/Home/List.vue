@@ -57,7 +57,19 @@
       -webkit-app-region: drag;
       padding: 12px 15px;
       display: flex;
-      border-bottom: 1px solid #bfbfbf;
+      position: relative;
+      /* border-bottom: 1px solid #bfbfbf; */
+      &:after {
+        content:"";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        display: block;
+        width: 100%;
+        height: 1px;
+        background: #bfbfbf;
+        transform: scaleY(0.5);
+      }
       &.max-height {
         height: 65px;
         padding-top: 27px;
