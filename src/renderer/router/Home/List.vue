@@ -18,7 +18,8 @@
     <ul class="md-list">
       <transition-group name="list" tag="li">
         <div
-          class="md-list-item" v-for="item in list"
+          class="md-list-item" 
+          v-for="item in list"
           :class="activeClass(item.id)"
           :key="item.id"
           @contextmenu="setMenu(item)"
