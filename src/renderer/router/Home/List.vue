@@ -61,7 +61,7 @@
       position: relative;
       /* border-bottom: 1px solid #bfbfbf; */
       &:after {
-        content:"";
+        content: '';
         position: absolute;
         bottom: 0;
         left: 0;
@@ -279,11 +279,35 @@
       }
     },
     watch: {
+      searchText(val) {
+        console.log('KEYLIGHT')
+        this.keyLight(document.body, val)
+      },
       currentLayout(val) {
         this.isShow = val !== 1
       }
     },
     methods: {
+      keyLight(dom, key, bgColor = 'yellow') {
+        debugger
+        let sText = dom.innerHTML
+        const sKey =
+          "<span style='background-color: " + bgColor + ";'>" + key + '</span>'
+        let num = -1
+        const rStr = new RegExp(key, 'g')
+        // 匹配html元素
+        const rHtml = new RegExp('<.*?>', 'ig')
+        const aHtml = sText.match(rHtml) // 存放html元素的数组
+        sText = sText.replace(rHtml, '{~}') // 替换html标签
+        sText = sText.replace(rStr, sKey) // 替换key
+        sText = sText.replace(/{~}/g, function() {
+          // 恢复html标签
+          num++
+          return aHtml[num]
+        })
+
+        dom.innerHTML = sText
+      },
       setMenu(data) {
         const template = [
           {

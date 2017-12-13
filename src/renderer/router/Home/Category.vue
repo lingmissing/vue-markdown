@@ -131,7 +131,7 @@
         const { BrowserWindow } = remote
         var win = new BrowserWindow({ width: 460, height: 510, show: false })
         win.on('closed', function() {
-          win = null 
+          win = null
         })
         win.loadURL('http://localhost:9080/#/setting')
         win.show()

@@ -10,6 +10,7 @@
     :currentLayout="currentLayout"
     @currentClick="getCurrentType($event)"></List>
   <Detail
+    :currentScale="currentScale"
     :currentLayout="currentLayout" 
     @changeLayout="changeLayout"></Detail>
 </main>
@@ -40,6 +41,7 @@
     },
     data() {
       return {
+        currentScale: 1,
         currentLayout: 3,
         currentType: ''
       }
@@ -47,6 +49,18 @@
     mounted() {
       ipcRenderer.on('change-layout', (event, arg) => {
         this.currentLayout = arg
+      })
+      ipcRenderer.on('changeScale', (event, arg) => {
+        switch (arg) {
+          case 'large':
+            this.currentScale = this.currentScale + 0.1
+            break
+          case 'small':
+            this.currentScale = this.currentScale - 0.1
+            break
+          default:
+            this.currentScale = 1
+        }
       })
     },
     methods: {

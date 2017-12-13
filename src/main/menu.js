@@ -134,6 +134,30 @@ let template = [
         click: function(item, focusedWindow) {
           focusedWindow.webContents.send('change-layout', 1)
         }
+      },
+      {
+        type: 'separator'
+      },
+      {
+        label: '放大',
+        accelerator: 'Command+Plus',
+        click: function(item, focusedWindow) {
+          focusedWindow.webContents.send('changeScale', 'large')
+        }
+      },
+      {
+        label: '缩小',
+        accelerator: 'Command+-',
+        click: function(item, focusedWindow) {
+          focusedWindow.webContents.send('changeScale', 'small')
+        }
+      },
+      {
+        label: '实际大小',
+        accelerator: 'Command+0',
+        click: function(item, focusedWindow) {
+          focusedWindow.webContents.send('changeScale', 'normal')
+        }
       }
     ]
   },

@@ -48,6 +48,10 @@
     & .v-show-content {
       /* padding: 0; */
     }
+    & .v-note-panel {
+      transform-origin: top;
+      transition: all 0.3s;
+    }
     & .v-note-op {
       box-shadow: 0 0 0 transparent;
       background: transparent;
@@ -158,6 +162,7 @@
       Pen
     },
     props: {
+      currentScale: Number,
       currentLayout: Number
     },
     data() {
@@ -186,6 +191,12 @@
         marks = marks.map(item => item.replace(/==/g, ''))
         const title = str.match(/\w+\n=/) || []
         console.log(marks, title[0])
+      },
+      currentScale(val) {
+        const $panel = document.querySelector('.v-note-panel')
+        if ($panel) {
+          $panel.style.transform = `scale(${val})`
+        }
       }
     },
     methods: {
